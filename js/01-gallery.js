@@ -7,7 +7,7 @@ const galleryElement = document.querySelector(".gallery");
 const galleryList = galleryItems
   .map(
     ({ preview, original, description }) =>
-`<div class='gallery__item'>
+`<li class='gallery__item'>
   <a class='gallery__link' href=${original}>
     <img
       class='gallery__image'
@@ -16,8 +16,24 @@ const galleryList = galleryItems
       alt=${description}
     />
   </a>
-</div>\n`
+</li>\n`
   )
   .join("");
 
 galleryElement.insertAdjacentHTML("beforeend", galleryList);
+
+galleryElement.addEventListener("click", showImage);
+
+function showImage(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+  basicLightbox
+    .create(
+      `
+		<img src=${event.target.dataset.source}>
+	`
+    )
+    .show();
+}
