@@ -3,12 +3,15 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 const galleryElement = document.querySelector(".gallery");
-const galleryList = galleryItems.map(({ preview, original, description }) =>
-  `<li>
-  <a class="gallery__item" href=${original}>
-  <img class="gallery__image" src=${preview} alt=${description} />
+const galleryList = galleryItems
+  .map(
+    ({ preview, original, description }) =>
+      `<li class="gallery__item">
+  <a href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}" />
 </a></li>`
-).join("");
+  )
+  .join("");
 
 galleryElement.insertAdjacentHTML("beforeend", galleryList);
 
