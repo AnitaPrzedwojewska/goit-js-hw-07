@@ -29,11 +29,18 @@ function showImage(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  basicLightbox
+  const imageElement = basicLightbox
     .create(
       `
 		<img src=${event.target.dataset.source}>
 	`
-    )
-    .show();
+  );
+
+  imageElement.show();
+
+  galleryElement.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      imageElement.close();
+    }
+  });
 }
