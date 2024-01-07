@@ -24,11 +24,28 @@ galleryElement.insertAdjacentHTML("beforeend", galleryList);
 
 galleryElement.addEventListener("click", showImage);
 
+// function closeElement(event, element) {
+//   // console.log(event.key);
+//   if (event.key === "Escape") {
+//     console.log("Naciśnięty został klawisz 'Escape'");
+//     element.close();
+//   }
+// }
+
 function showImage(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
+
+  function closeElement(event, element) {
+    // console.log(event.key);
+    if (event.key === "Escape") {
+      console.log("Naciśnięty został klawisz 'Escape'");
+      element.close();
+    }
+  }
+
   const imageElement = basicLightbox.create(
     `
 		<img src="${event.target.dataset.source}">
@@ -56,19 +73,14 @@ function showImage(event) {
         });
       }
       // onShow: (imageElement) => {
-      //   document.addEventListener("keydown", (event) => {
-      //     if (event.key === "Escape") {
-      //       imageElement.close();
-      //     }
+      //   console.log("'imageElement' jest otwarty");
+      //   const key = event.key;
+      //   console.log(key);
+      //   // imageElement.element().addEventListener("keydown", (event) => {
+      //   document.addEventListener("keydown", (event, imageElement) => {
+      //     document.removeEventListener("keydown", closeElement, false)
       //   });
-      // },
-      // onClose: (imageElement) => {
-      //   document.removeEventListener("keydown", (event) => {
-      //     if (event.key === "Escape") {
-      //       imageElement.close();
-      //     }
-      //   });
-      // },
+      // }
     }
   );
 
