@@ -24,74 +24,33 @@ galleryElement.insertAdjacentHTML("beforeend", galleryList);
 
 galleryElement.addEventListener("click", showImage);
 
-// function closeElement(event, element) {
-//   // console.log(event.key);
-//   if (event.key === "Escape") {
-//     console.log("Naciśnięty został klawisz 'Escape'");
-//     element.close();
-//   }
-// }
+const imageElement = basicLightbox.create(
+  `
+		<img src="">
+	`,
+  {
+    onShow: () => {
+      document.addEventListener("keydown", pressKey);
+    },
+    onClose: () => {
+      document.removeEventListener("keydown", pressKey);
+    },
+  }
+);
+
+function pressKey() {
+  if (event.key === "Escape") {
+    imageElement.close();
+    // console.log("Naciśnięto klawisz 'Escape'.");
+  }
+}
 
 function showImage(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
-
-  function closeElement(event, element) {
-    // console.log(event.key);
-    if (event.key === "Escape") {
-      console.log("Naciśnięty został klawisz 'Escape'");
-      element.close();
-    }
-  }
-
-  const imageElement = basicLightbox.create(
-    `
-		<img src="${event.target.dataset.source}">
-	`,
-    {
-      onShow: (imageElement) => {
-        console.log("'imageElement' jest otwarty");
-        const key = event.key;
-        console.log(key);
-        // imageElement.element().addEventListener("keydown", (event) => {
-        document.addEventListener("keydown", (event) => {
-          // console.log(event.key);
-          if (event.key === "Escape") {
-            console.log("Naciśnięty został klawisz 'Escape'");
-            imageElement.close();
-          }
-        });
-      },
-      onClose: (imageElement) => {
-        console.log("'imageElement' jest zamknięty");
-        document.removeEventListener("keydown", (event) => {
-          if (event.key === "Escape") {
-            imageElement.close();
-          }
-        });
-      }
-      // onShow: (imageElement) => {
-      //   console.log("'imageElement' jest otwarty");
-      //   const key = event.key;
-      //   console.log(key);
-      //   // imageElement.element().addEventListener("keydown", (event) => {
-      //   document.addEventListener("keydown", (event, imageElement) => {
-      //     document.removeEventListener("keydown", closeElement, false)
-      //   });
-      // }
-    }
-  );
-
   // console.log(imageElement.element());
-
+  imageElement.element().querySelector("IMG").src = event.target.dataset.source;
   imageElement.show();
-
-  // galleryElement.addEventListener("keydown", (event) => {
-  //   if (event.key === "Escape") {
-  //     console.log("Naciśniety został klawisz 'Escape'.")
-  //     imageElement.close();
-  //   }
-  // });
 }
